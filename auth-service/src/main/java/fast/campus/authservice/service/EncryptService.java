@@ -13,6 +13,11 @@ public class EncryptService {
         return passwordEncoder.encode(rawPassword);
     }
 
+    /**
+     * @param source Encrypt 처리되어 DB에 저장 되어 있는 비밀번호
+     * @param target 비교하고자 하는 비밀번호
+     * @return 일치 여부
+     */
     public boolean matches(String source, String target) {
         return passwordEncoder.matches(source, target);
     }
