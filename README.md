@@ -29,12 +29,12 @@ $ docker ps -a
 - 비밀번호가 BCrypt 암호화가 되어 저장되어야 한다.
 
 ```http request
-POST /api/v1/users
+POST /api/v1/user
 Content-Type: application/json
 
 {
-  "userId": "danny.kim",
-  "password": "12345"
+  "userId": "yeong0724",
+  "password": "1234"
 }
 ```
 
@@ -44,12 +44,12 @@ Content-Type: application/json
 - OTP 값은 6자리 숫자이다.
 
 ```http request
-POST /api/v1/users/auth
+POST /api/v1/user/auth
 Content-Type: application/json
 
 {
-  "userId": "danny.kim",
-  "password": 12345
+  "userId": "yeong0724",
+  "password": 1234
 }
 ```
 
@@ -62,8 +62,8 @@ POST /api/v1/otp/check
 Content-Type: application/json
 
 {
-  "userId": "danny.kim",
-  "otp": "123456"
+  "userId": "yeong0724",
+  "otp": "해당 계정에 등록된 OTP Code값"
 }
 ```
 
@@ -72,7 +72,7 @@ Content-Type: application/json
 ### 0. 준비
 
 - `auth-service` 애플리케이션 구동
-- `POST /api/v1/users` 엔드포인트를 사용하여 사용자 등록
+- `POST /api/v1/user` 엔드포인트를 사용하여 사용자 등록
 
 ### 1. 사용자 ID/PW 검증
 
@@ -82,7 +82,7 @@ Content-Type: application/json
 예시
 
 ```bash
-$ curl -H "username:danny.kim" -H "password:12345" http://localhost:8080/login
+$ curl -H "username:yeong0724" -H "password:1234" http://localhost:8080/login
 ```
 
 ### 2. 사용자 ID/OTP 검증
@@ -93,16 +93,16 @@ $ curl -H "username:danny.kim" -H "password:12345" http://localhost:8080/login
 예시
 
 ```bash
-$ curl -v -H "username:danny.kim" -H "otp:412312" http://localhost:8080/login
+$ curl -v -H "username:yeong0724" -H "otp:<계정에 등록된 OTP Code>" http://localhost:8080/login
 ```
 
-### 3. `/api/v1/healthcheck` 엔드포인트 호출
+### 3. `/api/v1/test` 엔드포인트 호출
 
-- 2번 과정에서 전달받은 `Authorization` 으로 `/api/v1/healthcheck` 을 호출한다.
+- 2번 과정에서 전달받은 `Authorization` 으로 `/api/v1/test` 을 호출한다.
 
 예시
 ```bash
 $ curl -H "Authorization:eyJhbGciOiJIUzI1NiJ9
 .eyJ1c2VybmFtZSI6ImRhbm55LmtpbSJ9
-.mFdBB99e_8xsDRyXS1UxkQA4SItauqSVZzEcqsYM-qo" http://localhost:8080/api/v1/healthcheck
+.mFdBB99e_8xsDRyXS1UxkQA4SItauqSVZzEcqsYM-qo" http://localhost:8080/api/v1/test
 ```
